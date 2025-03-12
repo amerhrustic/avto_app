@@ -1,0 +1,55 @@
+<h1>Add New Car</h1>
+
+<%= form_with model: @car, local: true, html: { multipart: true } do |f| %>
+  <% if @car.errors.any? %>
+    <div class="errors">
+      <h2>There were some errors:</h2>
+      <ul>
+        <% @car.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :brand_name, "Brand" %>
+    <%= f.text_field :brand_name, class: 'p-3 border rounded' %>
+  </div>
+
+  <div>
+    <%= f.label :model_name, "Model" %>
+    <%= f.text_field :model_name, class: 'p-3 border rounded' %>
+  </div>
+
+  <div>
+    <%= f.label :year %>
+    <%= f.number_field :year %>
+  </div>
+
+  <div>
+    <%= f.label :price %>
+    <%= f.number_field :price %>
+  </div>
+
+  <div>
+    <%= f.label :km %>
+    <%= f.number_field :km %>
+  </div>
+
+  <div>
+    <%= f.label :fuel_type %>
+    <%= f.select :fuel_type, ['Petrol', 'Diesel', 'Electric', 'Hybrid'] %>
+  </div>
+
+  <div>
+    <%= f.label :car_image, 'Car Image' %>
+    <%= f.file_field :car_image, class: 'p-3 border rounded' %>
+  </div>
+
+  <div>
+    <%= f.submit 'Create Car', class: 'p-3 bg-blue-500 text-white rounded' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Cars', cars_path %>

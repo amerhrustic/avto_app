@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Motors - Car Listings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+<nav class="bg-blue-900 text-white p-4 flex justify-between items-center w-full fixed top-0 left-0 z-50">
+<div class="text-2xl font-bold">Elite Motors</div>
+<ul class="flex space-x-6">
+  <li><%= link_to 'Home', root_path, class: 'hover:underline' %></li>
+  <!-- Add the link to the 'New Car' page -->
+  <li><%= link_to 'Add Car', new_car_path, class: 'hover:underline' %></li>
+</ul>
+</nav>
+
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center mt-20 w-full">
+        
+        <!-- Search Filter -->
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-6xl mt-10">
+        <h2 class="text-2xl font-bold mb-4 text-center">Search for a Car</h2>
+        <%= form_with url: cars_path, method: :get, local: true do |f| %>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <%= f.select :brand_id, options_from_collection_for_select(Brand.all, :id, :name, params[:brand_id]), { include_blank: 'All Brands' }, class: "p-3 border rounded" %>
+               <%= f.select :model_id, options_from_collection_for_select(Model.all, :id, :name, params[:model_id]), { include_blank: 'All Models' }, class: "p-3 border rounded" %>
+                <%= f.submit "Search", class: "p-3 bg-blue-500 text-white rounded" %>
+            </div>
+        <% end %>
+    </div>
+    
+
+        <!-- Car Listings -->
+        <div class="mt-6 w-full max-w-4xl">
+            <h2 class="text-2xl font-bold text-center mb-4">Available Cars</h2>
+            <div class="space-y-4">
+                <% @cars.each do |car| %>
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <% if car.images.attached? %>
+                            <%= image_tag car.images.first, class: "w-full h-52 object-cover" %>
+                        <% else %>
+                            <img src="https://via.placeholder.com/400" class="w-full h-52 object-cover">
+                        <% end %>
+                        <div class="p-4">
+                            <h3 class="text-xl font-bold"><%= car.brand.name %> <%= car.car_model.name %></h3>
+                            <p class="text-gray-600 mt-2">Year: <%= car.year %> | <%= car.mileage %> km | <%= car.fuel_type %></p>
+                            <p class="text-blue-600 font-bold mt-3 text-lg">€<%= car.price %></p>
+                            <div class="mt-5 flex justify-between">
+                                <%= link_to "View", car_path(car), class: "bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400" %>
+                                <%= link_to "Edit", edit_car_path(car), class: "bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400" %>
+                                <%= link_to "Delete", car_path(car), method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-500 text-white p-2 rounded hover:bg-red-600" %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center p-4 w-full fixed bottom-0 left-0">
+        &copy; 2025 Elite Motors. All rights reserved.
+    </footer>
+
+</body>
+</html>
+
+
