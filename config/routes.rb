@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "cars/index"
   get "cars/show"
   get "pages/home"
-
+ get '/models', to: 'models#index'
   root "cars#index"
 
   resources :cars, only: [:index, :show, :new, :create, :edit, :update, :destroy]

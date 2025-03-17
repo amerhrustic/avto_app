@@ -13,13 +13,13 @@
   <% end %>
 
   <div>
-    <%= f.label :brand_name, "Brand" %>
-    <%= f.text_field :brand_name, class: 'p-3 border rounded' %>
+    <%= f.label :brand_id, "Brand" %>
+    <%= f.collection_select :brand_id, Brand.all, :id, :name, { prompt: "Select a Brand" }, { class: "p-3 border rounded", id: "brand-select" } %>
   </div>
 
   <div>
-    <%= f.label :model_name, "Model" %>
-    <%= f.text_field :model_name, class: 'p-3 border rounded' %>
+    <%= f.label :model_id, "Model" %>
+    <%= f.collection_select :model_id, Model.none, :id, :name, { prompt: "Select a Model" }, { class: "p-3 border rounded", id: "model-select" } %>
   </div>
 
   <div>
@@ -53,3 +53,23 @@
 <% end %>
 
 <%= link_to 'Back to Cars', cars_path %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("brand-select").addEventListener("change", function() {
+      let brandId = this.value;
+      fetch(`/models?brand_id=${brandId}`)
+        .then(response => response.json())
+        .then(data => {
+          let modelSelect = document.getElementById("model-select");
+          modelSelect.innerHTML = '<option value="">Select a Model</option>';
+          data.forEach(model => {
+            let option = document.createElement("option");
+            option.value = model.id;
+            option.textContent = model.name;
+            modelSelect.appendChild(option);
+          });
+        });
+    });
+  });
+</script>
