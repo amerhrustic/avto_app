@@ -20,7 +20,7 @@ Brand.create(name: 'Ford')
 Brand.create(name: 'Toyota')
 
 # Modeli (Car Models)
-CarModel.create(name: 'A4', brand_id: Brand.find_by(name: 'Audi').id)
+CarModel.create(name: 'A4', brand_id: 1)
 CarModel.create(name: '3 Series', brand_id: Brand.find_by(name: 'BMW').id)
 CarModel.create(name: 'C-Class', brand_id: Brand.find_by(name: 'Mercedes-Benz').id)
 CarModel.create(name: '911', brand_id: Brand.find_by(name: 'Porsche').id)

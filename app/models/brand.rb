@@ -1,2 +1,4 @@
 class Brand < ApplicationRecord
-end
+    has_many :car_models
+  end
+  
