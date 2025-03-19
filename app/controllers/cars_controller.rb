@@ -1,71 +1,69 @@
 class CarsController < ApplicationController
-  # List all cars
+  before_action :set_car, only: %i[show edit update destroy]
+  before_action :load_brands, only: %i[new edit create update]
+
+  # Prikaz vseh avtomobilov
   def index
-    @cars = Car.all
+    @cars = Car.all.includes(:brand, :model) # Prepreči N+1 queries
   end
 
-  # Show a specific car's details
+  # Prikaz podrobnosti o avtu
   def show
-    @car = Car.find(params[:id])
   end
 
-  # Show the form to create a new car
+  # Prikaži obrazec za dodajanje novega avtomobila
   def new
     @car = Car.new
-    @brands = Brand.all  # Load all brands for the dropdown
-    @models = Model.all  # Load all models for the dropdown
+    @models = [] # Prazna izbira modelov, dokler uporabnik ne izbere znamke
   end
 
-  # Create a new car in the database
+  # Ustvari nov avto v bazi
   def create
-    # First, find or create the brand based on the name
-    @brand = Brand.find_or_create_by(name: params[:car][:brand_name])
-
-    # Then, find or create the model based on the name and brand_id
-    @model = Model.find_or_create_by(name: params[:car][:model_name], brand_id: @brand.id)
-
-    # Now create the car with the correct brand_id and model_id
-    @car = Car.new(car_params.merge(brand_id: @brand.id, model_id: @model.id))
+    @car = Car.new(car_params)
 
     if @car.save
       redirect_to cars_path, notice: 'Car successfully added!'
     else
-      @brands = Brand.all  # Re-load brands in case of error
-      @models = Model.all  # Re-load models in case of error
-      render :new
+      @models = Model.where(brand_id: params[:car][:brand_id]) # Naloži modele izbrane znamke
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # Show the form to edit an existing car
+  # Prikaži obrazec za urejanje avtomobila
   def edit
-    @car = Car.find(params[:id])
-    @brands = Brand.all  # Load all brands for the dropdown
-    @models = Model.all  # Load all models for the dropdown
+    @models = Model.where(brand_id: @car.brand_id) # Pravilni modeli za izbrano znamko
   end
 
-  # Update an existing car's details
+  # Posodobi podatke o avtu
   def update
-    @car = Car.find(params[:id])
     if @car.update(car_params)
       redirect_to cars_path, notice: 'Car successfully updated!'
     else
-      @brands = Brand.all  # Re-load brands in case of error
-      @models = Model.all  # Re-load models in case of error
-      render :edit
+      @models = Model.where(brand_id: @car.brand_id)
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # Delete a car
+  # Izbriši avto
   def destroy
-    @car = Car.find(params[:id])
     @car.destroy
     redirect_to cars_path, notice: 'Car successfully deleted!'
   end
 
   private
 
-  # Only allow trusted parameters
+  # Dovoli le varne parametre
   def car_params
-    params.require(:car).permit(:year, :price, :km, :fuel_type, :car_image)
+    params.require(:car).permit(:brand_id, :model_id, :year, :price, :km, :fuel_type, :car_image)
+  end
+
+  # Nastavi @car glede na ID
+  def set_car
+    @car = Car.find(params[:id])
+  end
+
+  # Naloži vse znamke za dropdown meni
+  def load_brands
+    @brands = Brand.all
   end
 end
