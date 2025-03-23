@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite Motors - Car Listings ovo radi kralju takoddaaa radi vojde</title>
+    <title>Elite Motors - Car Listings</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
@@ -12,7 +12,7 @@
     <div class="text-2xl font-bold">Elite Motors</div>
     <ul class="flex space-x-6">
         <li><%= link_to 'Home', root_path, class: 'hover:underline' %></li>
-        <li><%= link_to 'Add Caraa', new_car_path, class: 'hover:underline' %></li>
+        <li><%= link_to 'Add Cara', new_car_path, class: 'hover:underline' %></li>
     </ul>
 </nav>
 
@@ -43,7 +43,7 @@
                         <img src="https://via.placeholder.com/400" class="w-full h-52 object-cover">
                     <% end %>
                     <div class="p-4">
-                        <h3 class="text-xl font-bold"><%= car.model.brand.name %> <%= car.model.name %></h3>
+                    <h3 class="text-xl font-bold"><%= car.brand.name %> <%= car.car_model.name %></h3>
                         <p class="text-gray-600 mt-2">Year: <%= car.year %> | <%= car.km %> km | <%= car.fuel_type %></p>
                         <p class="text-blue-600 font-bold mt-3 text-lg">€<%= car.price %></p>
                         <div class="mt-5 flex justify-between">

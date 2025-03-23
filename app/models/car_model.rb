@@ -1,4 +1,4 @@
 class CarModel < ApplicationRecord
-    belongs_to :brand # Dodajte to vrstico, če je povezano z modelom 'Brand'
-  end
-  
+  belongs_to :brand
+  has_many :cars
+end
