@@ -1,2 +1,60 @@
-<h1>Cars#show</h1>
-<p>Find me in app/views/cars/show.html.erb</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= @car.brand.name %> <%= @car.model.name %> - Car Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+<nav class="bg-blue-900 text-white p-4 flex justify-between items-center w-full fixed top-0 left-0 z-50">
+    <div class="text-2xl font-bold">Elite Motors</div>
+    <ul class="flex space-x-6">
+        <li><%= link_to 'Home', root_path, class: 'hover:underline' %></li>
+        <li><%= link_to 'Add Car', new_car_path, class: 'hover:underline' %></li>
+        <li><%= link_to 'Login', login_path, class: 'hover:underline' %></li>
+    </ul>
+</nav>
+
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center mt-20 w-full">
+
+    <!-- Car Details -->
+    <div class="bg-white shadow-lg rounded-lg w-full max-w-4xl p-6 mb-6">
+        <h2 class="text-3xl font-bold text-center mb-6"><%= @car.brand.name %> <%= @car.model.name %> <%= @car.year %></h2>
+        
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <!-- Car Image -->
+            <div class="w-full md:w-1/2 mb-6 md:mb-0">
+                <% if @car.car_image.attached? %>
+                    <%= image_tag @car.car_image, class: "w-full h-80 object-cover rounded-lg" %>
+                <% else %>
+                    <img src="https://via.placeholder.com/400" class="w-full h-80 object-cover rounded-lg">
+                <% end %>
+            </div>
+
+            <!-- Car Info -->
+            <div class="w-full md:w-1/2 md:pl-6">
+                <h3 class="text-xl font-bold mb-4">Car Information</h3>
+                <p class="text-lg text-gray-700"><strong>Price:</strong> €<%= @car.price %></p>
+                <p class="text-lg text-gray-700"><strong>Kilometers:</strong> <%= @car.km %> km</p>
+                <p class="text-lg text-gray-700"><strong>Fuel Type:</strong> <%= @car.fuel_type %></p>
+                <p class="text-lg text-gray-700"><strong>Transmission:</strong> <%= @car.transmission %></p>
+                <p class="text-lg text-gray-700"><strong>Power:</strong> <%= @car.power %> hp</p>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <%= link_to 'Back to Listings', cars_path, class: "bg-blue-500 text-white p-3 rounded hover:bg-blue-600" %>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white text-center p-4 w-full fixed bottom-0 left-0">
+    &copy; 2025 Elite Motors. All rights reserved.
+</footer>
+
+</body>
+</html>
