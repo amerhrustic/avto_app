@@ -28,6 +28,13 @@ class CarsController < ApplicationController
     end
 
     if @car.save
+      # Dodaj slike, če so bile naložene
+      if params[:car][:images].present?
+        params[:car][:images].each do |image_file|
+          Image.create(url: image_file.url, car_id: @car.id)  # Prepričajte se, da image_file vsebuje URL
+        end
+      end
+
       redirect_to cars_path, notice: 'Car successfully added!'
     else
       @models = Model.where(brand_id: params[:car][:brand_id]) # Naloži modele izbrane znamke
@@ -60,7 +67,7 @@ class CarsController < ApplicationController
 
   # Dovoli le varne parametre
   def car_params
-    params.require(:car).permit(:brand_id, :model_id, :year, :price, :km, :fuel_type, :car_image)
+    params.require(:car).permit(:brand_id, :model_id, :year, :price, :km, :fuel_type, images: [])
   end
 
   # Nastavi @car glede na ID
