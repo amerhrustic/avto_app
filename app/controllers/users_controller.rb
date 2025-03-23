@@ -5,8 +5,11 @@ class UsersController < ApplicationController
   
     def create
       @user = User.new(user_params)
+      @user.role = "regular" # Set default role for all users
+  
       if @user.save
-        redirect_to login_path, notice: "Registration successful!"
+        session[:user_id] = @user.id
+        redirect_to root_path, notice: "User created successfully!"
       else
         render :new
       end
@@ -15,7 +18,7 @@ class UsersController < ApplicationController
     private
   
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
   end
   
