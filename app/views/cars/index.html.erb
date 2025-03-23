@@ -36,13 +36,16 @@
     <div class="mt-6 w-full max-w-4xl">
         <h2 class="text-2xl font-bold text-center mb-4">Available Cars</h2>
         <div class="space-y-4">
-            <% @cars.each do |car| %>
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <% if car.car_image.attached? %>
-                        <%= image_tag car.car_image, class: "w-full h-52 object-cover" %>
-                    <% else %>
-                        <p>No image available</p>
-                    <% end %>
+        <% @cars.each do |car| %>
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+              <% if car.images.attached? %> <!-- Check if images are attached -->
+                <%= image_tag car.images.first, class: "w-full h-52 object-cover" %> <!-- Display the first image -->
+              <% else %>
+                <p>No image available</p>
+              <% end %>
+            </div>
+          <% end %>
+          
                     
                     <!-- Placeholder image if no image is attached -->
                     <img src="https://via.placeholder.com/400" class="w-full h-52 object-cover">
