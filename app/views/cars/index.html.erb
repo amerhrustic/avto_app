@@ -38,9 +38,12 @@
         <div class="space-y-4">
             <% @cars.each do |car| %>
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <% if car.car_image.attached? %>
-                        <%= image_tag car.car_image, class: "w-full h-52 object-cover" %>
-                    <% else %>
+                <% if car.car_image.attached? %>
+                <%= image_tag car.car_image, class: "w-full h-52 object-cover" %>
+              <% else %>
+                <p>No image available</p>
+              <% end %>
+              
                         <img src="https://via.placeholder.com/400" class="w-full h-52 object-cover">
                     <% end %>
                     <div class="p-4">
