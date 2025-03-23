@@ -16,7 +16,6 @@
     </ul>
 </nav>
 
-
 <!-- Main Content -->
 <main class="flex-grow flex flex-col items-center mt-20 w-full">
 
@@ -43,25 +42,19 @@
               <% else %>
                 <p>No image available</p>
               <% end %>
-            </div>
-          <% end %>
-          
-                    
-                    <!-- Placeholder image if no image is attached -->
-                    <img src="https://via.placeholder.com/400" class="w-full h-52 object-cover">
-                    
-                    <div class="p-4">
-                        <h3 class="text-xl font-bold"><%= car.brand.name %> <%= car.model.name %></h3>
-                        <p class="text-gray-600 mt-2">Year: <%= car.year %> | <%= car.km %> km | <%= car.fuel_type %></p>
-                        <p class="text-blue-600 font-bold mt-3 text-lg">€<%= car.price %></p>
-                        <div class="mt-5 flex justify-between">
-                            <%= link_to "View", car_path(car), class: "bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400" %>
-                            <%= link_to "Edit", edit_car_path(car), class: "bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400" %>
-                            <%= link_to "Delete", car_path(car), method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-500 text-white p-2 rounded hover:bg-red-600" %>
-                        </div>
-                    </div>
+
+              <div class="p-4">
+                <h3 class="text-xl font-bold"><%= car.brand.name %> <%= car.model.name %></h3>
+                <p class="text-gray-600 mt-2">Year: <%= car.year %> | <%= car.km %> km | <%= car.fuel_type %></p>
+                <p class="text-blue-600 font-bold mt-3 text-lg">€<%= car.price %></p>
+                <div class="mt-5 flex justify-between">
+                    <%= link_to "View", car_path(car), class: "bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400" %>
+                    <%= link_to "Edit", edit_car_path(car), class: "bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400" %>
+                    <%= link_to "Delete", car_path(car), method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-500 text-white p-2 rounded hover:bg-red-600" %>
                 </div>
-            <% end %> <!-- end of @cars.each -->
+              </div>
+            </div>
+        <% end %> <!-- end of @cars.each -->
         </div>
     </div>
     
