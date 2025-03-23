@@ -43,6 +43,30 @@
     <%= f.select :fuel_type, ['Petrol', 'Diesel', 'Electric', 'Hybrid'] %>
   </div>
 
+  <!-- Transmission Field -->
+  <div>
+    <%= f.label :transmission, "Transmission" %>
+    <%= f.select :transmission, ['Manual', 'Automatic'], { include_blank: 'Select Transmission' }, class: "p-3 border rounded" %>
+  </div>
+
+  <!-- Description Field -->
+  <div>
+    <%= f.label :description, "Description" %>
+    <%= f.text_area :description, class: "p-3 border rounded", rows: 4 %>
+  </div>
+
+  <!-- Power Field -->
+  <div>
+    <%= f.label :power, "Power (hp)" %>
+    <%= f.number_field :power, class: "p-3 border rounded" %>
+  </div>
+
+  <!-- Color Field -->
+  <div>
+    <%= f.label :color, "Color" %>
+    <%= f.text_field :color, class: "p-3 border rounded" %>
+  </div>
+
   <div>
     <%= f.label :images %>
     <%= f.file_field :images, multiple: true %> <!-- Upload multiple images -->

@@ -26,10 +26,12 @@
         <div class="flex flex-col md:flex-row justify-between items-center">
             <!-- Car Image -->
             <div class="w-full md:w-1/2 mb-6 md:mb-0">
-            <% car.car_images.each do |image| %>
-                <%= image_tag image, class: "w-full h-52 object-cover" %>
-              <% end %>
-              
+                <% if @car.car_images.attached? %> <!-- Check if the car has images attached -->
+                    <% @car.car_images.each do |image| %>
+                        <%= image_tag image, class: "w-full h-80 object-cover rounded-lg mb-4" %> <!-- Display each image -->
+                    <% end %>
+                <% else %>
+                    <!-- Placeholder image if no car images are attached -->
                     <img src="https://via.placeholder.com/400" class="w-full h-80 object-cover rounded-lg">
                 <% end %>
             </div>
