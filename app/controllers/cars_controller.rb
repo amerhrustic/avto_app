@@ -69,6 +69,7 @@ class CarsController < ApplicationController
   def car_params
     params.require(:car).permit(:brand_id, :model_id, :year, :price, :km, :fuel_type, images: [])
   end
+  
 
   # Nastavi @car glede na ID
   def set_car
