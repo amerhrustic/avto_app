@@ -19,9 +19,6 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
 
-  get "login", to: "sessions#new"
-  post "login", to: "sessions#create"
-  delete "logout", to: "sessions#destroy"
 
   # Model by Brand route (če boš potreboval, sicer lahko odstraniš)
   get "/models_by_brand", to: "models#models_by_brand"
