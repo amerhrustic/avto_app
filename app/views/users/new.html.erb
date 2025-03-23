@@ -1,2 +1,22 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<h1 class="text-2xl font-bold">Register</h1>
+
+<%= form_with model: @user, local: true do |form| %>
+  <div>
+    <%= form.label :email, class: "block" %>
+    <%= form.email_field :email, class: "p-3 border rounded w-full" %>
+  </div>
+
+  <div>
+    <%= form.label :password, class: "block" %>
+    <%= form.password_field :password, class: "p-3 border rounded w-full" %>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation, class: "block" %>
+    <%= form.password_field :password_confirmation, class: "p-3 border rounded w-full" %>
+  </div>
+
+  <div>
+    <%= form.submit "Register", class: "p-3 bg-blue-500 text-white rounded" %>
+  </div>
+<% end %>

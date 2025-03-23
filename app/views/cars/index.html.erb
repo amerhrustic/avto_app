@@ -13,8 +13,15 @@
     <ul class="flex space-x-6">
         <li><%= link_to 'Home', root_path, class: 'hover:underline' %></li>
         <li><%= link_to 'Add Car', new_car_path, class: 'hover:underline' %></li>
+        <% if logged_in? %>
+          <li><%= link_to 'Logout', logout_path, method: :delete, class: 'hover:underline' %></li>
+        <% else %>
+          <li><%= link_to 'Login', login_path, class: 'hover:underline' %></li>
+          <li><%= link_to 'Register', new_user_path, class: 'hover:underline' %></li>
+        <% end %>
     </ul>
 </nav>
+
 
 <!-- Main Content -->
 <main class="flex-grow flex flex-col items-center mt-20 w-full">
