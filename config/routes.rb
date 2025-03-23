@@ -15,13 +15,12 @@ Rails.application.routes.draw do
   resources :models, only: [:index]
   get "/models_by_brand", to: "models#models_by_brand" # API endpoint for dynamically loading models
 
-  # User Authentication Routes
-  get "/register", to: "users#new"
-  post "/register", to: "users#create"
+# In your routes.rb file
+  get "/login", to: "users#new"
+  post "/login", to: "users#create"
 
-  get "/login", to: "sessions#new"
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
+  get "/register", to: "sessions#new"
+  post "/register", to: "sessions#create"
 
   # Users Routes (Registration)
   resources :users, only: [:new, :create]
