@@ -38,16 +38,17 @@
         <div class="space-y-4">
             <% @cars.each do |car| %>
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                <% if car.car_image.attached? %>
-                <%= image_tag car.car_image, class: "w-full h-52 object-cover" %>
-              <% else %>
-                <p>No image available</p>
-              <% end %>
-              
-                        <img src="https://via.placeholder.com/400" class="w-full h-52 object-cover">
+                    <% if car.car_image.attached? %>
+                        <%= image_tag car.car_image, class: "w-full h-52 object-cover" %>
+                    <% else %>
+                        <p>No image available</p>
                     <% end %>
+                    
+                    <!-- Placeholder image if no image is attached -->
+                    <img src="https://via.placeholder.com/400" class="w-full h-52 object-cover">
+                    
                     <div class="p-4">
-                    <h3 class="text-xl font-bold"><%= car.brand.name %> <%= car.model.name %></h3>
+                        <h3 class="text-xl font-bold"><%= car.brand.name %> <%= car.model.name %></h3>
                         <p class="text-gray-600 mt-2">Year: <%= car.year %> | <%= car.km %> km | <%= car.fuel_type %></p>
                         <p class="text-blue-600 font-bold mt-3 text-lg">€<%= car.price %></p>
                         <div class="mt-5 flex justify-between">
@@ -57,9 +58,10 @@
                         </div>
                     </div>
                 </div>
-            <% end %>
+            <% end %> <!-- end of @cars.each -->
         </div>
     </div>
+    
 </main>
 
 <!-- Footer -->
