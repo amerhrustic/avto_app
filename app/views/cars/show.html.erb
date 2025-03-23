@@ -66,14 +66,37 @@
                 <p class="text-lg text-gray-700"><strong>Fuel Type:</strong> <%= @car.fuel_type %></p>
                 <p class="text-lg text-gray-700"><strong>Transmission:</strong> <%= @car.transmission %></p>
                 <p class="text-lg text-gray-700"><strong>Power:</strong> <%= @car.power %> hp</p>
+                <p class="text-lg text-gray-700"><strong>Color:</strong> <%= @car.color %></p>
+                <p class="text-lg text-gray-700"><strong>Description:</strong> <%= @car.description %></p>
             </div>
         </div>
 
-        <div class="mt-6">
+        <div class="mt-6 flex justify-between">
             <%= link_to 'Back to Listings', cars_path, class: "bg-blue-500 text-white p-3 rounded hover:bg-blue-600" %>
+            
+            <!-- Share Button -->
+            <button onclick="shareCar()" class="bg-green-500 text-white p-3 rounded hover:bg-green-600">Share</button>
+            
+            <!-- Delete Button -->
+            <%= button_to 'Delete Car', @car, method: :delete, data: { confirm: 'Are you sure?' }, class: "bg-red-500 text-white p-3 rounded hover:bg-red-600" %>
         </div>
     </div>
 </main>
+
+<!-- Share Car Script -->
+<script>
+    function shareCar() {
+        const url = window.location.href;
+        if (navigator.share) {
+            navigator.share({
+                title: document.title,
+                url: url
+            }).catch(console.error);
+        } else {
+            prompt("Copy this link to share:", url);
+        }
+    }
+</script>
 
 <!-- Footer -->
 <footer class="bg-gray-800 text-white text-center p-4 w-full fixed bottom-0 left-0">
