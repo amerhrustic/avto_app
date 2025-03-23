@@ -12,7 +12,7 @@
     <div class="text-2xl font-bold">Elite Motors</div>
     <ul class="flex space-x-6">
         <li><%= link_to 'Home', root_path, class: 'hover:underline' %></li>
-        <li><%= link_to 'Add Cara', new_car_path, class: 'hover:underline' %></li>
+        <li><%= link_to 'Add Car', new_car_path, class: 'hover:underline' %></li>
     </ul>
 </nav>
 
@@ -25,7 +25,7 @@
         <%= form_with url: cars_path, method: :get, local: true do |f| %>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <%= f.select :brand_id, options_from_collection_for_select(Brand.all, :id, :name, params[:brand_id]), { include_blank: 'All Brands' }, class: "p-3 border rounded" %>
-                <%= f.select :model_id, options_from_collection_for_select(Model.all, :id, :name, params[:model_id]), { include_blank: 'All Models' }, class: "p-3 border rounded" %>
+                <%= f.select :model_id, options_from_collection_for_select(CarModel.all, :id, :name, params[:model_id]), { include_blank: 'All Models' }, class: "p-3 border rounded" %>
                 <%= f.submit "Search", class: "p-3 bg-blue-500 text-white rounded" %>
             </div>
         <% end %>
@@ -37,13 +37,13 @@
         <div class="space-y-4">
             <% @cars.each do |car| %>
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <% if car.images.attached? %>
-                        <%= image_tag car.images.first, class: "w-full h-52 object-cover" %>
+                    <% if car.car_image.attached? %>
+                        <%= image_tag car.car_image, class: "w-full h-52 object-cover" %>
                     <% else %>
                         <img src="https://via.placeholder.com/400" class="w-full h-52 object-cover">
                     <% end %>
                     <div class="p-4">
-                    <h3 class="text-xl font-bold"><%= car.brand.name %> <%= car.car_model.name %></h3>
+                        <h3 class="text-xl font-bold"><%= car.brand.name %> <%= car.car_model.name %></h3>
                         <p class="text-gray-600 mt-2">Year: <%= car.year %> | <%= car.km %> km | <%= car.fuel_type %></p>
                         <p class="text-blue-600 font-bold mt-3 text-lg">€<%= car.price %></p>
                         <div class="mt-5 flex justify-between">
