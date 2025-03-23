@@ -5,11 +5,9 @@ class UsersController < ApplicationController
   
     def create
       @user = User.new(user_params)
-      @user.role = "user"  # Privzeta vloga
-  
       if @user.save
-        session[:user_id] = @user.id
-        redirect_to root_path, notice: "Account created successfully!"
+        session[:user_id] = @user.id  # Takoj po registraciji uporabnika prijavi
+        redirect_to root_path, notice: "Account created and logged in!"
       else
         render :new
       end
