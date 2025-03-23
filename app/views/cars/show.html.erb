@@ -77,6 +77,9 @@
             <!-- Share Button -->
             <button onclick="shareCar()" class="bg-green-500 text-white p-3 rounded hover:bg-green-600">Share</button>
             
+            <!-- Edit Button -->
+            <%= link_to 'Edit Car', edit_car_path(@car), class: "bg-yellow-500 text-white p-3 rounded hover:bg-yellow-600" %>
+            
             <!-- Delete Button -->
             <%= button_to 'Delete Car', @car, method: :delete, data: { confirm: 'Are you sure?' }, class: "bg-red-500 text-white p-3 rounded hover:bg-red-600" %>
         </div>
