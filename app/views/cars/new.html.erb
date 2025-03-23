@@ -1,9 +1,9 @@
-<h1>Add New Car</h1>
+<h1 class="text-3xl font-bold mb-6">Add New Car</h1>
 
 <%= form_with model: @car, local: true, html: { multipart: true } do |f| %>
   <% if @car.errors.any? %>
-    <div class="errors">
-      <h2>There were some errors:</h2>
+    <div class="bg-red-100 border border-red-400 text-red-700 p-4 rounded mb-6">
+      <h2 class="font-semibold">There were some errors:</h2>
       <ul>
         <% @car.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -12,69 +12,65 @@
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :brand_id, "Brand" %>
-    <%= f.collection_select :brand_id, Brand.all, :id, :name, { prompt: "Select a Brand" }, { class: "p-3 border rounded", id: "brand-select" } %>
+  <div class="mb-6">
+    <%= f.label :brand_id, "Brand", class: "block text-lg font-semibold mb-2" %>
+    <%= f.collection_select :brand_id, Brand.all, :id, :name, { prompt: "Select a Brand" }, { class: "p-3 border rounded w-full" } %>
   </div>
 
-  <div>
-    <%= f.label :model_id, "Model" %>
-    <%= f.select :model_id, @models.map { |m| [m.name, m.id] }, { include_blank: "Select a Model" }, class: "p-3 border rounded", id: "model-select" %>
-    <%= f.text_field :model_name, placeholder: "Or enter model name", class: "p-3 border rounded" %>
+  <div class="mb-6">
+    <%= f.label :model_id, "Model", class: "block text-lg font-semibold mb-2" %>
+    <%= f.select :model_id, @models.map { |m| [m.name, m.id] }, { include_blank: "Select a Model" }, class: "p-3 border rounded w-full" %>
+    <%= f.text_field :model_name, placeholder: "Or enter model name", class: "p-3 border rounded w-full mt-2" %>
   </div>
 
-  <div>
-    <%= f.label :year %>
-    <%= f.number_field :year %>
+  <div class="mb-6">
+    <%= f.label :year, class: "block text-lg font-semibold mb-2" %>
+    <%= f.number_field :year, class: "p-3 border rounded w-full" %>
   </div>
 
-  <div>
-    <%= f.label :price %>
-    <%= f.number_field :price %>
+  <div class="mb-6">
+    <%= f.label :price, class: "block text-lg font-semibold mb-2" %>
+    <%= f.number_field :price, class: "p-3 border rounded w-full" %>
   </div>
 
-  <div>
-    <%= f.label :km %>
-    <%= f.number_field :km %>
+  <div class="mb-6">
+    <%= f.label :km, class: "block text-lg font-semibold mb-2" %>
+    <%= f.number_field :km, class: "p-3 border rounded w-full" %>
   </div>
 
-  <div>
-    <%= f.label :fuel_type %>
-    <%= f.select :fuel_type, ['Petrol', 'Diesel', 'Electric', 'Hybrid'] %>
+  <div class="mb-6">
+    <%= f.label :fuel_type, class: "block text-lg font-semibold mb-2" %>
+    <%= f.select :fuel_type, ['Petrol', 'Diesel', 'Electric', 'Hybrid'], class: "p-3 border rounded w-full" %>
   </div>
 
-  <!-- Transmission Field -->
-  <div>
-    <%= f.label :transmission, "Transmission" %>
-    <%= f.select :transmission, ['Manual', 'Automatic'], { include_blank: 'Select Transmission' }, class: "p-3 border rounded" %>
+  <div class="mb-6">
+    <%= f.label :transmission, "Transmission", class: "block text-lg font-semibold mb-2" %>
+    <%= f.select :transmission, ['Manual', 'Automatic'], { include_blank: 'Select Transmission' }, class: "p-3 border rounded w-full" %>
   </div>
 
-  <!-- Description Field -->
-  <div>
-    <%= f.label :description, "Description" %>
-    <%= f.text_area :description, class: "p-3 border rounded", rows: 4 %>
+  <div class="mb-6">
+    <%= f.label :description, "Description", class: "block text-lg font-semibold mb-2" %>
+    <%= f.text_area :description, class: "p-3 border rounded w-full", rows: 4 %>
   </div>
 
-  <!-- Power Field -->
-  <div>
-    <%= f.label :power, "Power (hp)" %>
-    <%= f.number_field :power, class: "p-3 border rounded" %>
+  <div class="mb-6">
+    <%= f.label :power, "Power (hp)", class: "block text-lg font-semibold mb-2" %>
+    <%= f.number_field :power, class: "p-3 border rounded w-full" %>
   </div>
 
-  <!-- Color Field -->
-  <div>
-    <%= f.label :color, "Color" %>
-    <%= f.text_field :color, class: "p-3 border rounded" %>
+  <div class="mb-6">
+    <%= f.label :color, "Color", class: "block text-lg font-semibold mb-2" %>
+    <%= f.text_field :color, class: "p-3 border rounded w-full" %>
   </div>
 
-  <div>
-    <%= f.label :images %>
-    <%= f.file_field :images, multiple: true %> <!-- Upload multiple images -->
+  <div class="mb-6">
+    <%= f.label :images, class: "block text-lg font-semibold mb-2" %>
+    <%= f.file_field :images, multiple: true, class: "p-3 border rounded w-full" %>
   </div>
 
-  <div>
-    <%= f.submit 'Create Car', class: 'p-3 bg-blue-500 text-white rounded' %>
+  <div class="mb-6">
+    <%= f.submit 'Create Car', class: 'w-full p-3 bg-blue-500 text-white rounded hover:bg-blue-600' %>
   </div>
 <% end %>
 
-<%= link_to 'Back to Cars', cars_path %>
+<%= link_to 'Back to Cars', cars_path, class: "text-blue-500 hover:underline" %>
