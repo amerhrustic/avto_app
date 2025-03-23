@@ -3,9 +3,8 @@ Rails.application.routes.draw do
 
   # Cars Routes
   resources :cars, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    # Dodaš pot za dinamično nalaganje modelov za izbrano znamko
     collection do
-      get :load_models
+      get :load_models  # Dinamično nalaganje modelov glede na izbrano znamko
     end
   end
 
@@ -14,12 +13,16 @@ Rails.application.routes.draw do
 
   # Model Routes
   resources :models, only: [:index]
+  get "/models_by_brand", to: "models#models_by_brand" # API endpoint za dinamično nalaganje modelov
 
-  # User Routes
-  resources :users, only: [:new, :create]
-  resources :sessions, only: [:new, :create, :destroy]
+  # User Authentication Routes
+  get "/register", to: "users#new"
+  post "/register", to: "users#create"
 
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
 
-  # Model by Brand route (če boš potreboval, sicer lahko odstraniš)
-  get "/models_by_brand", to: "models#models_by_brand"
+  # Users Routes
+  resources :users, only: [:index, :show, :edit, :update, :destroy]
 end

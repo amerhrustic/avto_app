@@ -8,11 +8,20 @@
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
+<!-- Navbar -->
 <nav class="bg-blue-900 text-white p-4 flex justify-between items-center w-full fixed top-0 left-0 z-50">
     <div class="text-2xl font-bold">Elite Motors</div>
     <ul class="flex space-x-6">
         <li><%= link_to 'Home', root_path, class: 'hover:underline' %></li>
-        <li><%= link_to 'Add Car', new_car_path, class: 'hover:underline' %></li>
+        <li><%= link_to 'Add Car', new_car_path, class: 'hover:underline' if logged_in? %></li>
+        
+        <% if logged_in? %>
+            <li class="font-semibold">Welcome, <%= current_user.name %></li>
+            <li><%= link_to 'Logout', logout_path, method: :delete, class: 'hover:underline' %></li>
+        <% else %>
+            <li><%= link_to 'Login', login_path, class: 'hover:underline' %></li>
+            <li><%= link_to 'Register', register_path, class: 'hover:underline' %></li>
+        <% end %>
     </ul>
 </nav>
 
@@ -49,7 +58,9 @@
                 <p class="text-blue-600 font-bold mt-3 text-lg">€<%= car.price %></p>
                 <div class="mt-5 flex justify-between">
                     <%= link_to "View", car_path(car), class: "bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400" %>
-                    <%= link_to "Edit", edit_car_path(car),  class: "bg-gray-500 text-white p-2 rounded hover:bg-gray-600" %>
+                    <% if logged_in? %>
+                        <%= link_to "Edit", edit_car_path(car),  class: "bg-gray-500 text-white p-2 rounded hover:bg-gray-600" %>
+                    <% end %>
                 </div>
               </div>
             </div>
