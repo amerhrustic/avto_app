@@ -1,76 +1,117 @@
-<h1 class="text-3xl font-bold mb-6">Add New Car</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Car</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
 
-<%= form_with model: @car, local: true, html: { multipart: true } do |f| %>
-  <% if @car.errors.any? %>
-    <div class="bg-red-100 border border-red-400 text-red-700 p-4 rounded mb-6">
-      <h2 class="font-semibold">There were some errors:</h2>
-      <ul>
-        <% @car.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+  <!-- Navbar -->
+  <nav class="bg-blue-500 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="text-white text-2xl font-bold">
+        <%= link_to "Elite Motors", root_path, class: "hover:underline" %>
+      </div>
+      <div>
+        <%= link_to "Home", root_path, class: "text-white hover:underline mx-4" %>
+        <%= link_to "Cars", cars_path, class: "text-white hover:underline mx-4" %>
+        <%= link_to "Add New Car", new_car_path, class: "text-white hover:underline mx-4" %>
+      </div>
     </div>
-  <% end %>
+  </nav>
 
-  <div class="mb-6">
-    <%= f.label :brand_id, "Brand", class: "block text-lg font-semibold mb-2" %>
-    <%= f.collection_select :brand_id, Brand.all, :id, :name, { prompt: "Select a Brand" }, { class: "p-3 border rounded w-full" } %>
+  <!-- Main Content -->
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6">Add New Car</h1>
+
+    <%= form_with model: @car, local: true, html: { multipart: true } do |f| %>
+      <% if @car.errors.any? %>
+        <div class="bg-red-100 border border-red-400 text-red-700 p-4 rounded mb-6">
+          <h2 class="font-semibold">There were some errors:</h2>
+          <ul>
+            <% @car.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-6">
+        <%= f.label :brand_id, "Brand", class: "block text-lg font-semibold mb-2" %>
+        <%= f.collection_select :brand_id, Brand.all, :id, :name, { prompt: "Select a Brand" }, { class: "p-3 border rounded w-full" } %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :model_id, "Model", class: "block text-lg font-semibold mb-2" %>
+        <%= f.select :model_id, @models.map { |m| [m.name, m.id] }, { include_blank: "Select a Model" }, class: "p-3 border rounded w-full" %>
+        <%= f.text_field :model_name, placeholder: "Or enter model name", class: "p-3 border rounded w-full mt-2" %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :year, class: "block text-lg font-semibold mb-2" %>
+        <%= f.number_field :year, class: "p-3 border rounded w-full" %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :price, class: "block text-lg font-semibold mb-2" %>
+        <%= f.number_field :price, class: "p-3 border rounded w-full" %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :km, class: "block text-lg font-semibold mb-2" %>
+        <%= f.number_field :km, class: "p-3 border rounded w-full" %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :fuel_type, class: "block text-lg font-semibold mb-2" %>
+        <%= f.select :fuel_type, ['Petrol', 'Diesel', 'Electric', 'Hybrid'], class: "p-3 border rounded w-full" %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :transmission, "Transmission", class: "block text-lg font-semibold mb-2" %>
+        <%= f.select :transmission, ['Manual', 'Automatic'], { include_blank: 'Select Transmission' }, class: "p-3 border rounded w-full" %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :description, "Description", class: "block text-lg font-semibold mb-2" %>
+        <%= f.text_area :description, class: "p-3 border rounded w-full", rows: 4 %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :power, "Power (hp)", class: "block text-lg font-semibold mb-2" %>
+        <%= f.number_field :power, class: "p-3 border rounded w-full" %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :color, "Color", class: "block text-lg font-semibold mb-2" %>
+        <%= f.text_field :color, class: "p-3 border rounded w-full" %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label :images, class: "block text-lg font-semibold mb-2" %>
+        <%= f.file_field :images, multiple: true, class: "p-3 border rounded w-full" %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.submit 'Create Car', class: 'w-full p-3 bg-blue-500 text-white rounded hover:bg-blue-600' %>
+      </div>
+    <% end %>
+
+    <%= link_to 'Back to Cars', cars_path, class: "text-blue-500 hover:underline" %>
   </div>
 
-  <div class="mb-6">
-    <%= f.label :model_id, "Model", class: "block text-lg font-semibold mb-2" %>
-    <%= f.select :model_id, @models.map { |m| [m.name, m.id] }, { include_blank: "Select a Model" }, class: "p-3 border rounded w-full" %>
-    <%= f.text_field :model_name, placeholder: "Or enter model name", class: "p-3 border rounded w-full mt-2" %>
-  </div>
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white p-4 mt-12">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 Elite Motors. All Rights Reserved.</p>
+      <p>
+        <%= link_to "Privacy Policy", "#", class: "text-blue-400 hover:underline" %> | 
+        <%= link_to "Terms of Service", "#", class: "text-blue-400 hover:underline" %>
+      </p>
+    </div>
+  </footer>
 
-  <div class="mb-6">
-    <%= f.label :year, class: "block text-lg font-semibold mb-2" %>
-    <%= f.number_field :year, class: "p-3 border rounded w-full" %>
-  </div>
-
-  <div class="mb-6">
-    <%= f.label :price, class: "block text-lg font-semibold mb-2" %>
-    <%= f.number_field :price, class: "p-3 border rounded w-full" %>
-  </div>
-
-  <div class="mb-6">
-    <%= f.label :km, class: "block text-lg font-semibold mb-2" %>
-    <%= f.number_field :km, class: "p-3 border rounded w-full" %>
-  </div>
-
-  <div class="mb-6">
-    <%= f.label :fuel_type, class: "block text-lg font-semibold mb-2" %>
-    <%= f.select :fuel_type, ['Petrol', 'Diesel', 'Electric', 'Hybrid'], class: "p-3 border rounded w-full" %>
-  </div>
-
-  <div class="mb-6">
-    <%= f.label :transmission, "Transmission", class: "block text-lg font-semibold mb-2" %>
-    <%= f.select :transmission, ['Manual', 'Automatic'], { include_blank: 'Select Transmission' }, class: "p-3 border rounded w-full" %>
-  </div>
-
-  <div class="mb-6">
-    <%= f.label :description, "Description", class: "block text-lg font-semibold mb-2" %>
-    <%= f.text_area :description, class: "p-3 border rounded w-full", rows: 4 %>
-  </div>
-
-  <div class="mb-6">
-    <%= f.label :power, "Power (hp)", class: "block text-lg font-semibold mb-2" %>
-    <%= f.number_field :power, class: "p-3 border rounded w-full" %>
-  </div>
-
-  <div class="mb-6">
-    <%= f.label :color, "Color", class: "block text-lg font-semibold mb-2" %>
-    <%= f.text_field :color, class: "p-3 border rounded w-full" %>
-  </div>
-
-  <div class="mb-6">
-    <%= f.label :images, class: "block text-lg font-semibold mb-2" %>
-    <%= f.file_field :images, multiple: true, class: "p-3 border rounded w-full" %>
-  </div>
-
-  <div class="mb-6">
-    <%= f.submit 'Create Car', class: 'w-full p-3 bg-blue-500 text-white rounded hover:bg-blue-600' %>
-  </div>
-<% end %>
-
-<%= link_to 'Back to Cars', cars_path, class: "text-blue-500 hover:underline" %>
+</body>
+</html>
