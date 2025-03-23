@@ -21,6 +21,12 @@ class CarsController < ApplicationController
   def create
     @car = Car.new(car_params)
 
+    if params[:car][:model_name].present?
+      # Če uporabnik vnese ime modela, ga ustvarimo in dodelimo avtomobilu
+      model = Model.find_or_create_by(name: params[:car][:model_name], brand_id: params[:car][:brand_id])
+      @car.model = model
+    end
+
     if @car.save
       redirect_to cars_path, notice: 'Car successfully added!'
     else
