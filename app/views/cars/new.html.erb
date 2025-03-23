@@ -42,11 +42,12 @@
     <%= f.label :fuel_type %>
     <%= f.select :fuel_type, ['Petrol', 'Diesel', 'Electric', 'Hybrid'] %>
   </div>
+
   <div>
-  <%= form_with model: @car, local: true, html: { multipart: true } do |f| %>
     <%= f.label :images %>
     <%= f.file_field :images, multiple: true %>  <!-- Omogoči nalaganje več slik -->
   </div>
+
   <div>
     <%= f.submit 'Create Car', class: 'p-3 bg-blue-500 text-white rounded' %>
   </div>
