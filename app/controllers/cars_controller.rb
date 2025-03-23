@@ -72,9 +72,4 @@ class CarsController < ApplicationController
   def load_brands
     @brands = Brand.all
   end
-    def show
-      @car = Car.find(params[:id])
-    end
-  end
-  
 end
