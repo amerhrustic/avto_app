@@ -1,12 +1,15 @@
 class SessionsController < ApplicationController
+  def new
+  end
+
   def create
-    user = User.find_by(email: params[:user][:email])  # Prilagojeno, ker obrazec uporablja model User
-    if user && user.authenticate(params[:user][:password])
+    user = User.find_by(email: params[:email])
+    if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to root_path, notice: "Logged in successfully!"
     else
       flash.now[:alert] = "Invalid email or password"
-      render "users/new"  # Ker se obrazec nahaja v users#new
+      render :new
     end
   end
 
