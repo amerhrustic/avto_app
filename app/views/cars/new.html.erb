@@ -20,7 +20,7 @@
   <div>
     <%= f.label :model_id, "Model" %>
     <%= f.select :model_id, @models.map { |m| [m.name, m.id] }, { include_blank: "Select a Model" }, class: "p-3 border rounded", id: "model-select" %>
-    <%= f.text_field :model_name, placeholder: "Or enter model name", class: "p-3 border rounded" %> <!-- Ročni vnos modela -->
+    <%= f.text_field :model_name, placeholder: "Or enter model name", class: "p-3 border rounded" %>
   </div>
 
   <div>
@@ -45,7 +45,7 @@
 
   <div>
     <%= f.label :images %>
-    <%= f.file_field :images, multiple: true %>  <!-- Omogoči nalaganje več slik -->
+    <%= f.file_field :images, multiple: true %> <!-- Upload multiple images -->
   </div>
 
   <div>
