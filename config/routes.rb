@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # Domača stran
   root "cars#index"
 
   # Cars Routes
@@ -15,22 +16,16 @@ Rails.application.routes.draw do
   resources :models, only: [:index]
   get "/models_by_brand", to: "models#models_by_brand" # API endpoint for dynamically loading models
 
-# In your routes.rb file
-  get "/login", to: "sessions#new"
-  post "/login", to: "sessions#create"
-
-  get "/register", to: "users#new"
-  post "/register", to: "users#create"
-
-  # Users Routes (Registration)
-  resources :users, only: [:new, :create]
-
-  # Other routes (users management, etc.)
-  resources :users, only: [:index, :show, :edit, :update, :destroy]
-
-  # Prijava in odjava
+  # Routes for Sessions (Login and Logout)
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
+  # Routes for Users (Registration)
+  get "/register", to: "users#new"
+  post "/register", to: "users#create"
+
+  # Ostale poti (upravljanje z uporabniki)
+  resources :users, only: [:index, :show, :edit, :update, :destroy]
 
 end
