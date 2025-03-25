@@ -5,19 +5,17 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.role = "regular" # Set default role
-
     if @user.save
-      session[:user_id] = @user.id
-      redirect_to root_path, notice: "User created successfully!"
+      session[:user_id] = @user.id # shranimo ID uporabnika v sejo
+      redirect_to root_path # preusmeri na domačo stran
     else
-      render :new
+      render :new # če registracija ne uspe, ponudi obrazec ponovno
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
   end
 end

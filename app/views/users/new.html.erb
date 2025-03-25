@@ -1,24 +1,43 @@
-<h1 class="text-2xl font-bold">Register or Login</h1>
+<h1>Registracija</h1>
 
-<%= form_with model: @user, url: @user.new_record? ? users_path : login_path, local: true do |form| %>
-  <div>
-    <%= form.label :email, class: "block" %>
-    <%= form.email_field :email, class: "p-3 border rounded w-full" %>
-  </div>
-
-  <div>
-    <%= form.label :password, class: "block" %>
-    <%= form.password_field :password, class: "p-3 border rounded w-full" %>
-  </div>
-
-  <% if @user.new_record? %>
-    <div>
-      <%= form.label :password_confirmation, class: "block" %>
-      <%= form.password_field :password_confirmation, class: "p-3 border rounded w-full" %>
+<%= form_with model: @user, local: true do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> preprečuje, da bi obrazec bil shranjen:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.submit @user.new_record? ? "Register" : "Login", class: "p-3 bg-blue-500 text-white rounded" %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.select :role, ['admin', 'user'] %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Registriraj se' %>
   </div>
 <% end %>
