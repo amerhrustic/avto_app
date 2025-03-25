@@ -27,5 +27,11 @@
     <%= f.password_field :password_confirmation, class: "p-3 border rounded w-full" %>
   </div>
 
+  <!-- Dropdown za izbiro vloge -->
+  <div class="mb-4">
+    <%= f.label :role, "Vloga" %>
+    <%= f.select :role, options_for_select(['user', 'admin'], @user.role), class: "p-3 border rounded w-full" %>
+  </div>
+
   <%= f.submit "Registriraj se", class: "bg-blue-500 text-white p-3 rounded" %>
 <% end %>

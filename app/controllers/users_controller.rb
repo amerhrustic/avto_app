@@ -5,12 +5,15 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
+    # Privzeta vloga, če ni izbrana
+    @user.role ||= 'user' # Privzeta vloga za uporabnika
+
     if @user.save
-      session[:user_id] = @user.id  # Samodejna prijava
-      flash[:notice] = 'Uspešno registriran!'
-      redirect_to root_path
+      flash[:notice] = "Registracija uspešna"
+      redirect_to login_path
     else
-      flash[:alert] = 'Napaka pri registraciji!'
+      flash[:alert] = @user.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -18,6 +21,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
   end
 end
