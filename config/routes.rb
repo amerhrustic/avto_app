@@ -16,11 +16,11 @@ Rails.application.routes.draw do
   get "/models_by_brand", to: "models#models_by_brand" # API endpoint for dynamically loading models
 
 # In your routes.rb file
-  get "/login", to: "users#new"
-  post "/login", to: "users#create"
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
 
-  get "/register", to: "sessions#new"
-  post "/register", to: "sessions#create"
+  get "/register", to: "users#new"
+  post "/register", to: "users#create"
 
   # Users Routes (Registration)
   resources :users, only: [:new, :create]
