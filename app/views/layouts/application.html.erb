@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-      /* Email styles need to be inline */
-    </style>
+    <meta charset="utf-8">
+    <title>Elite Motors</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="bg-gray-100">
+    <%= render "layouts/navbar" %> <!-- Prikaz navigacije -->
+
+    <div class="container mx-auto p-4">
+      <% if flash[:notice] %>
+        <p class="bg-green-200 text-green-800 p-2 rounded"><%= flash[:notice] %></p>
+      <% end %>
+      <% if flash[:alert] %>
+        <p class="bg-red-200 text-red-800 p-2 rounded"><%= flash[:alert] %></p>
+      <% end %>
+
+      <%= yield %> <!-- Prikaz trenutnega pogleda -->
+    </div>
   </body>
 </html>
