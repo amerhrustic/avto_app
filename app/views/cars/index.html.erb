@@ -13,9 +13,8 @@
     <div class="text-2xl font-bold">Elite Motors</div>
     <ul class="flex space-x-6">
         <li><%= link_to 'Home', root_path, class: 'hover:underline' %></li>
-        <li><%= link_to 'Add Car', new_car_path, class: 'hover:underline' if logged_in? %></li>
-        
         <% if logged_in? %>
+            <li><%= link_to 'Add Car', new_car_path, class: 'hover:underline' %></li>
             <li class="font-semibold">Welcome, <%= current_user.name %></li>
             <li><%= link_to 'Logout', logout_path, method: :delete, class: 'hover:underline' %></li>
         <% else %>
@@ -44,27 +43,28 @@
     <div class="mt-6 w-full max-w-4xl">
         <h2 class="text-2xl font-bold text-center mb-4">Available Cars</h2>
         <div class="space-y-4">
-        <% @cars.each do |car| %>
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-              <% if car.images.attached? %> <!-- Check if images are attached -->
-                <%= image_tag car.images.first, class: "w-full h-52 object-cover" %> <!-- Display the first image -->
-              <% else %>
-                <p>No image available</p>
-              <% end %>
-
-              <div class="p-4">
-                <h3 class="text-xl font-bold"><%= car.brand.name %> <%= car.model.name %></h3>
-                <p class="text-gray-600 mt-2">Year: <%= car.year %> | <%= car.km %> km | <%= car.fuel_type %></p>
-                <p class="text-blue-600 font-bold mt-3 text-lg">€<%= car.price %></p>
-                <div class="mt-5 flex justify-between">
-                    <%= link_to "View", car_path(car), class: "bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400" %>
-                    <% if logged_in? %>
-                        <%= link_to "Edit", edit_car_path(car),  class: "bg-gray-500 text-white p-2 rounded hover:bg-gray-600" %>
+            <% @cars.each do |car| %>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    <% if car.images.attached? %>
+                        <%= image_tag car.images.first, class: "w-full h-52 object-cover" %>
+                    <% else %>
+                        <img src="https://via.placeholder.com/400" class="w-full h-52 object-cover">
                     <% end %>
+
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold"><%= car.brand.name %> <%= car.model.name %></h3>
+                        <p class="text-gray-600 mt-2">Year: <%= car.year %> | <%= car.km %> km | <%= car.fuel_type %></p>
+                        <p class="text-blue-600 font-bold mt-3 text-lg">€<%= car.price %></p>
+                        <div class="mt-5 flex justify-between">
+                            <%= link_to "View", car_path(car), class: "bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400" %>
+                            <% if logged_in? %>
+                                <%= link_to "Edit", edit_car_path(car),  class: "bg-gray-500 text-white p-2 rounded hover:bg-gray-600" %>
+                                <%= link_to "Delete", car_path(car), method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-500 text-white p-2 rounded hover:bg-red-600" %>
+                            <% end %>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-        <% end %> <!-- end of @cars.each -->
+            <% end %>
         </div>
     </div>
     
