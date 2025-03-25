@@ -22,10 +22,10 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   # Routes for Users (Registration)
-  get "/register", to: "users#new"
-  post "/register", to: "users#create"
+  get "/register", to: "users#new"  # Registration form
+  post "/users", to: "users#create"  # Handles the POST request for user registration
 
   # Ostale poti (upravljanje z uporabniki)
-  resources :users, only: [:index, :show, :edit, :update, :destroy]
+  resources :users, only: [:index, :show, :edit, :update, :destroy] # Optional, only needed for user management
 
 end
