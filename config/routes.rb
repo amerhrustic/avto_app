@@ -27,4 +27,10 @@ Rails.application.routes.draw do
 
   # Other routes (users management, etc.)
   resources :users, only: [:index, :show, :edit, :update, :destroy]
+
+  # Prijava in odjava
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
 end
