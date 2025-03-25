@@ -1,0 +1,11 @@
+<nav class="bg-gray-800 p-4 text-white">
+  <ul class="flex space-x-4">
+    <li><%= link_to 'Domov', root_path %></li>
+    <li><%= link_to 'Avtomobili', cars_path %></li>
+    <% if user_signed_in? %>
+      <li><%= link_to 'Odjava', logout_path %></li>
+    <% else %>
+      <li><%= link_to 'Prijava', login_path %></li>
+    <% end %>
+  </ul>
+</nav>
