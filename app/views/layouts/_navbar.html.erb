@@ -1,11 +1,20 @@
-<nav class="bg-gray-800 p-4 text-white">
-  <ul class="flex space-x-4">
-    <li><%= link_to 'Domov', root_path %></li>
-    <li><%= link_to 'Avtomobili', cars_path %></li>
+<nav class="bg-blue-900 text-white p-4 flex justify-between items-center w-full fixed top-0 left-0 z-50">
+  <div class="text-2xl font-bold">Elite Motors</div>
+  <ul class="flex space-x-6">
+    <li><%= link_to 'Home', root_path, class: 'hover:underline' %></li>
     <% if logged_in? %>
-      <li><%= link_to 'Odjava', logout_path %></li>
+      <li><%= link_to 'Add Car', new_car_path, class: 'hover:underline' %></li>
+      <li class="font-semibold">Welcome, <%= current_user.name %></li>
+      
+      <!-- Gumb za odjavo -->
+      <li>
+        <%= form_with url: logout_path, method: :delete, local: true do %>
+          <%= submit_tag 'Logout', class: 'bg-red-500 text-white p-2 rounded hover:bg-red-600' %>
+        <% end %>
+      </li>
     <% else %>
-      <li><%= link_to 'Prijava', login_path %></li>
+      <li><%= link_to 'Login', login_path, class: 'hover:underline' %></li>
+      <li><%= link_to 'Register', register_path, class: 'hover:underline' %></li>
     <% end %>
   </ul>
 </nav>

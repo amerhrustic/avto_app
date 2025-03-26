@@ -1,37 +1,32 @@
-<h2 class="text-2xl font-bold text-center mb-4">Registracija</h2>
+<%# Vključi navbar in footer %>
+<%= render 'layouts/navbar' %>
 
-<%= form_with(model: @user, local: true) do |f| %>
-  <% if flash[:alert] %>
-    <div class="bg-red-500 text-white p-3 rounded mb-4">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center mb-6">Registracija</h2>
 
-  <div class="mb-4">
-    <%= f.label :name, "Ime" %>
-    <%= f.text_field :name, class: "p-3 border rounded w-full" %>
-  </div>
+    <% if flash[:alert] %>
+      <div class="bg-red-500 text-white p-3 rounded mb-4">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
 
-  <div class="mb-4">
-    <%= f.label :email, "Email" %>
-    <%= f.email_field :email, class: "p-3 border rounded w-full" %>
-  </div>
+    <%= form_with(model: @user, local: true) do |f| %>
+      <div class="mb-4">
+        <%= f.label :name, "Ime", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.text_field :name, class: "mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
 
-  <div class="mb-4">
-    <%= f.label :password, "Geslo" %>
-    <%= f.password_field :password, class: "p-3 border rounded w-full" %>
-  </div>
+      <div class="mb-4">
+        <%= f.label :email, "Email", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.email_field :email, class: "mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
 
-  <div class="mb-4">
-    <%= f.label :password_confirmation, "Potrditev gesla" %>
-    <%= f.password_field :password_confirmation, class: "p-3 border rounded w-full" %>
-  </div>
+      <div class="mb-4">
+        <%= f.label :password, "Geslo", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.password_field :password, class: "mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
 
-  <!-- Dropdown za izbiro vloge -->
-  <div class="mb-4">
-    <%= f.label :role, "Vloga" %>
-    <%= f.select :role, options_for_select(['user', 'admin'], @user.role), class: "p-3 border rounded w-full" %>
-  </div>
-
-  <%= f.submit "Registriraj se", class: "bg-blue-500 text-white p-3 rounded" %>
-<% end %>
+      <div class="mb-4">
+        <%= f.label :password_confirmation, "Potrditev gesla", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.password_field :password_confirmation, class: "mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
