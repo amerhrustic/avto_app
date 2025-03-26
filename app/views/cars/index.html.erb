@@ -15,13 +15,20 @@
     <% if logged_in? %>
       <li><%= link_to 'Add Car', new_car_path, class: 'hover:underline' %></li>
       <li class="font-semibold">Welcome, <%= current_user.name %></li>
-      <li><%= link_to 'Logout', logout_path, method: :delete, class: 'hover:underline' %></li>
+      
+      <!-- Gumb za odjavo -->
+      <li>
+        <%= form_with url: logout_path, method: :delete, local: true do %>
+          <%= submit_tag 'Logout', class: 'bg-red-500 text-white p-2 rounded hover:bg-red-600' %>
+        <% end %>
+      </li>
     <% else %>
       <li><%= link_to 'Login', login_path, class: 'hover:underline' %></li>
       <li><%= link_to 'Register', register_path, class: 'hover:underline' %></li>
     <% end %>
   </ul>
 </nav>
+
 
 
 
